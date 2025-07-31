@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewix - Editor & Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --card-bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --secondary-text-color: #666;
+            --accent-color: #3d52d5;
+            --border-radius: 24px;
+            --card-border: 1px solid #e0e0e0;
+        }
+
+        /* Убираем синее выделение при нажатии */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Анимации перехода */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        body.page-is-leaving {
+            animation: fadeOut 0.5s ease-in forwards;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            border: var(--card-border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .profile-card {
+            grid-column: span 2;
+            grid-row: span 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .profile-header { display: flex; align-items: center; gap: 1.5rem; }
+        .profile-header img { width: 80px; height: 80px; border-radius: 50%; }
+        .profile-header div h1 { margin: 0; font-size: 2rem; }
+        .profile-header div p { margin: 4px 0 0; color: var(--secondary-text-color); }
+        .profile-card .status { margin-top: auto; font-size: 1rem; }
+
+        .about-card { grid-column: span 2; }
+        .project-card { grid-column: span 2; grid-row: span 2; background-color: var(--accent-color); color: #fff; }
+        .project-card h2 { margin-top: 0; }
+        .project-card .arrow { font-size: 2rem; position: absolute; bottom: 2rem; right: 2rem; transition: transform 0.2s ease; }
+        .project-card:hover .arrow { transform: translateX(5px); }
+        .project-card p { opacity: 0.8; }
+        
+        .skills-card { grid-column: span 2; }
+        .skills-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .skills-list li { background-color: #f0f0f0; padding: 8px 16px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; }
+        
+        .socials-card { display: flex; justify-content: space-around; align-items: center; }
+        .socials-card a { font-size: 2rem; color: var(--secondary-text-color); transition: color 0.2s ease, transform 0.2s ease; }
+        .socials-card a:hover { color: var(--accent-color); transform: scale(1.1); }
+
+        .contact-card { text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .contact-card a { color: var(--accent-color); font-weight: 700; text-decoration: none; word-break: break-all; }
+
+        .card h2 { margin-top: 0; font-size: 1.5rem; }
+        .card .card-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--secondary-text-color); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+        .card .card-content { font-size: 1.25rem; font-weight: 700; margin: 0; }
+        
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .card { grid-column: span 1 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bento-grid">
+        <div class="card profile-card">
+            <div class="profile-header">
+                <img src="https://envs.sh/B9V.jpg" alt="Rewix's Avatar">
+                <div>
+                    <h1>Rewix</h1>
+                    <p>Anime Editor</p>
+                </div>
+            </div>
+            <p class="status">VPS enthusiast and founder of RewHost.</p>
+        </div>
+
+        <a href="about.html" class="card about-card">
+            <h2 class="card-title">About Me</h2>
+            <p class="card-content">I build things with code and pixels. Curious? →</p>
+        </a>
+        
+        <a href="project.html" class="card project-card">
+            <h2>My Project: RewHost</h2>
+            <p>Affordable and stable hosting for Hikka/Heroku userbots. Built for the community, by me.</p>
+            <div class="arrow">→</div>
+        </a>
+
+        <div class="card skills-card">
+            <h2 class="card-title">My Stack</h2>
+            <ul class="skills-list">
+                <li>Vibe Coding</li>
+                <li>Anime Edits</li>
+                <li>VPS</li>
+                <li>Linux</li>
+            </ul>
+        </div>
+
+        <div class="card socials-card">
+            <a href="https://t.me/RewiX_X" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="https://discordapp.com/users/rewix0936_00745" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/Rewixx-png" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+
+        <div class="card contact-card">
+             <h2 class="card-title">Get In Touch</h2>
+             <a href="mailto:Kustarnikovseryj@gmail.com">Kustarnikovseryj@gmail.com</a>
+        </div>
+    </div>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('a');
+
+            links.forEach(link => {
+                if (link.hostname === window.location.hostname && !link.href.includes('#') && link.target !== '_blank') {
+                    link.addEventListener('click', e => {
+                        e.preventDefault();
+                        const destination = link.href;
+                        document.body.classList.add('page-is-leaving');
+                        setTimeout(() => {
+                            window.location.href = destination;
+                        }, 500);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
